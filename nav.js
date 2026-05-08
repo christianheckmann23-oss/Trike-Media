@@ -21,7 +21,7 @@
         <li><a href="packages.html" data-page="packages">Packages</a></li>
         <li><a href="retainers.html" data-page="retainers">Retainers</a></li>
         <li><a href="about.html" data-page="about">About</a></li>
-        <li><a href="mailto:sales@trikemedia.io" class="nav-cta">See Your Site</a></li>
+        <li><a href="request-preview.html" class="nav-cta">See Your Site</a></li>
       </ul>
     </nav>`;
 
@@ -44,7 +44,7 @@
         <li><a href="packages.html">Packages</a></li>
         <li><a href="retainers.html">Retainers</a></li>
         <li><a href="about.html">About</a></li>
-        <li><a href="mailto:sales@trikemedia.io">Contact</a></li>
+        <li><a href="request-preview.html">Contact</a></li>
       </ul>
     </footer>`;
 
