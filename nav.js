@@ -3,7 +3,7 @@
   const navHTML = `
     <nav>
       <a href="index.html" class="nav-logo">
-        <img src="images/logo-white.svg" class="logo-mark" alt="Trike Media">
+        <img src="images/logo-nav.svg" class="logo-mark" alt="Trike Media">
         <span class="logo-text">Trike Media</span>
       </a>
       <ul class="nav-links">
