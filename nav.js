@@ -17,9 +17,9 @@
         <span class="logo-text">Trike Media</span>
       </a>
       <ul class="nav-links">
-        <li><a href="process.html" data-page="process">Process</a></li>
+        <li><a href="website-development.html" data-page="website-development">Website Development</a></li>
         <li><a href="packages.html" data-page="packages">Packages</a></li>
-        <li><a href="retainers.html" data-page="retainers">Retainers</a></li>
+        <li><a href="hosting.html" data-page="hosting">Hosting</a></li>
         <li><a href="about.html" data-page="about">About</a></li>
         <li><a href="request-preview.html" class="nav-cta">See Your Site</a></li>
       </ul>
@@ -28,9 +28,9 @@
       </button>
     </nav>
     <div class="nav-mobile" role="dialog" aria-label="Mobile navigation">
-      <a href="process.html">Process</a>
+      <a href="website-development.html">Website Development</a>
       <a href="packages.html">Packages</a>
-      <a href="retainers.html">Retainers</a>
+      <a href="hosting.html">Hosting</a>
       <a href="about.html">About</a>
       <a href="request-preview.html" class="nav-mobile-cta">See Your Site</a>
     </div>`;
@@ -50,9 +50,9 @@
       </a>
       <p class="footer-copy">© 2026 Triceratops Media Solutions, LLC · Elyria, Ohio</p>
       <ul class="footer-links">
-        <li><a href="process.html">Process</a></li>
+        <li><a href="website-development.html">Website Development</a></li>
         <li><a href="packages.html">Packages</a></li>
-        <li><a href="retainers.html">Retainers</a></li>
+        <li><a href="hosting.html">Hosting</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="request-preview.html">Contact</a></li>
         <li><a href="legal.html">Legal &amp; Policies</a></li>
