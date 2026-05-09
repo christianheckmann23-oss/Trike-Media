@@ -310,6 +310,110 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     min-height: 90px;
   }
 
+  /* ── BUTTON GROUPS ── */
+  .button-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .button-group input[type="radio"],
+  .button-group input[type="checkbox"] {
+    display: none;
+  }
+
+  .button-label {
+    display: block;
+    padding: 0.75rem 1rem;
+    border: 2px solid rgba(46,74,62,0.2);
+    border-radius: 4px;
+    background: var(--off-white);
+    color: var(--text);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+
+  .button-label:hover {
+    border-color: var(--green);
+    background: rgba(46,74,62,0.05);
+  }
+
+  .button-group input[type="radio"]:checked + .button-label,
+  .button-group input[type="checkbox"]:checked + .button-label {
+    background: var(--green);
+    color: var(--off-white);
+    border-color: var(--green);
+  }
+
+  /* ── COLOR PICKER ── */
+  .color-picker {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .color-picker input[type="checkbox"] {
+    display: none;
+  }
+
+  .color-label {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 4px;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .color-label:hover {
+    transform: scale(1.05);
+  }
+
+  .color-picker input[type="checkbox"]:checked + .color-label {
+    border-color: var(--text);
+    box-shadow: 0 0 0 2px var(--off-white), 0 0 0 4px var(--text);
+  }
+
+  /* ── CHECKBOX GROUPS ── */
+  .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .checkbox-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--green);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .checkbox-item label {
+    flex: 1;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+
+  .checkbox-item input[type="checkbox"]:hover + label {
+    color: var(--green);
+  }
+
   /* ── SUBMIT ── */
   .form-footer {
     margin-top: 2rem;
@@ -508,114 +612,223 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <form id="previewForm">
 
         <div class="fieldset">
-          <div class="fieldset-title"><span>📋</span> Your Business</div>
+          <div class="fieldset-title"><span>📋</span> The Basics</div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label for="companyName">Company Name *</label>
-              <input type="text" id="companyName" name="companyName" required placeholder="e.g., John's Landscaping">
-            </div>
-            <div class="form-group">
-              <label for="businessType">Industry *</label>
-              <select id="businessType" name="businessType" required>
-                <option value="">Select your industry</option>
-                <option value="landscaping">Landscaping</option>
-                <option value="hvac">HVAC & Home Services</option>
-                <option value="dining">Local Dining</option>
-                <option value="professional">Professional Services</option>
-                <option value="ecommerce">E-commerce</option>
-                <option value="consulting">Consulting</option>
-                <option value="other">Other</option>
-              </select>
+          <div class="form-group">
+            <label for="companyName">Your business name *</label>
+            <input type="text" id="companyName" name="companyName" required placeholder="e.g., John's Landscaping">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Your email address *</label>
+            <input type="email" id="email" name="email" required placeholder="your@email.com">
+          </div>
+
+          <div class="form-group">
+            <label for="businessType">What type of business? *</label>
+            <div class="button-group">
+              <input type="radio" id="type-landscaping" name="businessType" value="Landscaping & Outdoor Work" required>
+              <label for="type-landscaping" class="button-label">Landscaping</label>
+
+              <input type="radio" id="type-hvac" name="businessType" value="HVAC, Plumbing & Home Services" required>
+              <label for="type-hvac" class="button-label">Home Services</label>
+
+              <input type="radio" id="type-restaurant" name="businessType" value="Restaurant or Cafe" required>
+              <label for="type-restaurant" class="button-label">Restaurant/Cafe</label>
+
+              <input type="radio" id="type-professional" name="businessType" value="Professional Services (consulting, accounting, etc.)" required>
+              <label for="type-professional" class="button-label">Professional Services</label>
+
+              <input type="radio" id="type-retail" name="businessType" value="Retail or E-commerce" required>
+              <label for="type-retail" class="button-label">Retail/E-commerce</label>
+
+              <input type="radio" id="type-other" name="businessType" value="Something else" required>
+              <label for="type-other" class="button-label">Other</label>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="businessDescription">What does your business do? *</label>
-            <textarea id="businessDescription" name="businessDescription" required placeholder="Describe what makes your business unique, what you offer, and who you serve..."></textarea>
+            <label for="businessDescription">Tell us about your business *</label>
+            <textarea id="businessDescription" name="businessDescription" required placeholder="What do you do? What makes you special? What do your customers need from you?"></textarea>
           </div>
 
           <div class="form-row">
-            <div class="form-group">
-              <label for="email">Email Address *</label>
-              <input type="email" id="email" name="email" required placeholder="your@email.com">
-            </div>
             <div class="form-group">
               <label for="phone">Phone <span class="optional">(optional)</span></label>
               <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567">
             </div>
-          </div>
-
-          <div class="form-group">
-            <label for="website">Current Website <span class="optional">(optional)</span></label>
-            <input type="url" id="website" name="website" placeholder="https://yoursite.com">
+            <div class="form-group">
+              <label for="website">Your current website <span class="optional">(optional)</span></label>
+              <input type="url" id="website" name="website" placeholder="https://yoursite.com">
+            </div>
           </div>
         </div>
 
         <div class="fieldset">
-          <div class="fieldset-title"><span>🎨</span> Design Preferences</div>
+          <div class="fieldset-title"><span>🎨</span> How Should It Look & Feel?</div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label for="designStyle">Design Style *</label>
-              <select id="designStyle" name="designStyle" required>
-                <option value="">Select a style</option>
-                <option value="professional">Professional & Corporate</option>
-                <option value="modern">Modern & Minimalist</option>
-                <option value="friendly">Friendly & Approachable</option>
-                <option value="bold">Bold & Creative</option>
-                <option value="cartoony">Cartoony & Fun</option>
-                <option value="luxury">Luxury & High-End</option>
-                <option value="industrial">Industrial & Rugged</option>
-                <option value="unsure">Not sure</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="colorPreference">Primary Color *</label>
-              <select id="colorPreference" name="colorPreference" required>
-                <option value="">Select a color</option>
-                <option value="blue">Blue — Trust, Professional</option>
-                <option value="green">Green — Growth, Natural</option>
-                <option value="red">Red — Energy, Action</option>
-                <option value="orange">Orange — Warmth, Friendly</option>
-                <option value="purple">Purple — Creative, Premium</option>
-                <option value="black">Black — Elegant, Bold</option>
-                <option value="neutral">Neutral — Gray / Brown</option>
-                <option value="multicolor">Multicolor — Vibrant</option>
-              </select>
+          <div class="form-group">
+            <label>What's your vibe? <span class="optional">(optional)</span></label>
+            <div class="button-group">
+              <input type="radio" id="style-professional" name="designStyle" value="Professional & Trustworthy">
+              <label for="style-professional" class="button-label">Professional</label>
+
+              <input type="radio" id="style-modern" name="designStyle" value="Modern & Clean">
+              <label for="style-modern" class="button-label">Modern & Clean</label>
+
+              <input type="radio" id="style-friendly" name="designStyle" value="Friendly & Welcoming">
+              <label for="style-friendly" class="button-label">Friendly</label>
+
+              <input type="radio" id="style-bold" name="designStyle" value="Bold & Creative">
+              <label for="style-bold" class="button-label">Bold & Creative</label>
+
+              <input type="radio" id="style-fun" name="designStyle" value="Fun & Playful">
+              <label for="style-fun" class="button-label">Fun & Playful</label>
+
+              <input type="radio" id="style-luxury" name="designStyle" value="Fancy & Upscale">
+              <label for="style-luxury" class="button-label">Fancy & Upscale</label>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="tone">Brand Tone *</label>
-            <select id="tone" name="tone" required>
-              <option value="">Select a tone</option>
-              <option value="formal">Formal & Serious</option>
-              <option value="casual">Casual & Relaxed</option>
-              <option value="playful">Playful & Fun</option>
-              <option value="sophisticated">Sophisticated & Upscale</option>
-              <option value="inspiring">Inspiring & Motivational</option>
-              <option value="educational">Educational & Informative</option>
-            </select>
+            <label>Pick your main color(s) <span class="optional">(optional)</span></label>
+            <div class="color-picker">
+              <input type="checkbox" id="color-blue" name="colorPreference" value="blue" class="color-checkbox">
+              <label for="color-blue" class="color-label" style="background-color: #0066cc;" title="Blue"></label>
+
+              <input type="checkbox" id="color-green" name="colorPreference" value="green" class="color-checkbox">
+              <label for="color-green" class="color-label" style="background-color: #00a651;" title="Green"></label>
+
+              <input type="checkbox" id="color-red" name="colorPreference" value="red" class="color-checkbox">
+              <label for="color-red" class="color-label" style="background-color: #e63946;" title="Red"></label>
+
+              <input type="checkbox" id="color-orange" name="colorPreference" value="orange" class="color-checkbox">
+              <label for="color-orange" class="color-label" style="background-color: #ff9800;" title="Orange"></label>
+
+              <input type="checkbox" id="color-purple" name="colorPreference" value="purple" class="color-checkbox">
+              <label for="color-purple" class="color-label" style="background-color: #7c3aed;" title="Purple"></label>
+
+              <input type="checkbox" id="color-pink" name="colorPreference" value="pink" class="color-checkbox">
+              <label for="color-pink" class="color-label" style="background-color: #ec4899;" title="Pink"></label>
+
+              <input type="checkbox" id="color-teal" name="colorPreference" value="teal" class="color-checkbox">
+              <label for="color-teal" class="color-label" style="background-color: #06b6d4;" title="Teal"></label>
+
+              <input type="checkbox" id="color-gray" name="colorPreference" value="gray" class="color-checkbox">
+              <label for="color-gray" class="color-label" style="background-color: #6b7280;" title="Gray"></label>
+
+              <input type="checkbox" id="color-black" name="colorPreference" value="black" class="color-checkbox">
+              <label for="color-black" class="color-label" style="background-color: #1a1a1a;" title="Black"></label>
+            </div>
           </div>
 
           <div class="form-group">
-            <label for="keyFeatures">What's most important on your site? *</label>
-            <textarea id="keyFeatures" name="keyFeatures" required placeholder="e.g., Photo gallery, appointment booking, customer testimonials, pricing table, contact form..."></textarea>
+            <label>How should your site sound? <span class="optional">(optional)</span></label>
+            <div class="button-group">
+              <input type="radio" id="tone-formal" name="tone" value="Formal & Serious">
+              <label for="tone-formal" class="button-label">Professional & Serious</label>
+
+              <input type="radio" id="tone-casual" name="tone" value="Casual & Relaxed">
+              <label for="tone-casual" class="button-label">Casual & Relaxed</label>
+
+              <input type="radio" id="tone-playful" name="tone" value="Playful & Fun">
+              <label for="tone-playful" class="button-label">Fun & Playful</label>
+
+              <input type="radio" id="tone-upscale" name="tone" value="Sophisticated & Upscale">
+              <label for="tone-upscale" class="button-label">Fancy & Upscale</label>
+
+              <input type="radio" id="tone-inspiring" name="tone" value="Inspiring & Motivational">
+              <label for="tone-inspiring" class="button-label">Inspiring</label>
+            </div>
           </div>
         </div>
 
         <div class="fieldset">
-          <div class="fieldset-title"><span>🎯</span> A Little More Detail</div>
+          <div class="fieldset-title"><span>📲</span> What Should Be on Your Site?</div>
 
           <div class="form-group">
-            <label for="targetAudience">Who is your target audience? <span class="optional">(optional)</span></label>
-            <textarea id="targetAudience" name="targetAudience" placeholder="e.g., Homeowners ages 35–55, small business owners, families with young kids..."></textarea>
+            <label>What's most important to you? <span class="optional">(optional — pick any that apply)</span></label>
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input type="checkbox" id="feature-testimonials" name="keyFeatures" value="Customer testimonials">
+                <label for="feature-testimonials">Customer reviews & testimonials</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="feature-gallery" name="keyFeatures" value="Photo or work gallery">
+                <label for="feature-gallery">Photo gallery (show your work)</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="feature-booking" name="keyFeatures" value="Booking or appointment system">
+                <label for="feature-booking">Booking or appointments</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="feature-pricing" name="keyFeatures" value="Pricing table">
+                <label for="feature-pricing">Pricing or services list</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="feature-contact" name="keyFeatures" value="Contact form">
+                <label for="feature-contact">Contact form</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="feature-faq" name="keyFeatures" value="FAQ section">
+                <label for="feature-faq">FAQ (common questions)</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="feature-blog" name="keyFeatures" value="Blog or news section">
+                <label for="feature-blog">Blog or news section</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="feature-team" name="keyFeatures" value="Team or staff profiles">
+                <label for="feature-team">Meet the team</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="feature-newsletter" name="keyFeatures" value="Newsletter signup">
+                <label for="feature-newsletter">Newsletter or email signup</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="feature-social" name="keyFeatures" value="Social media links">
+                <label for="feature-social">Social media links</label>
+              </div>
+            </div>
           </div>
 
           <div class="form-group">
-            <label for="inspiration">Any websites or styles you like? <span class="optional">(optional)</span></label>
-            <textarea id="inspiration" name="inspiration" placeholder="Share any sites that look great to you, or describe what catches your eye..."></textarea>
+            <label>What kind of images or photos? <span class="optional">(optional)</span></label>
+            <div class="button-group">
+              <input type="radio" id="imagery-photo" name="imagery" value="Real photographs of your business">
+              <label for="imagery-photo" class="button-label">Real photos</label>
+
+              <input type="radio" id="imagery-illustration" name="imagery" value="Illustrations or drawings">
+              <label for="imagery-illustration" class="button-label">Illustrations</label>
+
+              <input type="radio" id="imagery-icons" name="imagery" value="Simple icons and graphics">
+              <label for="imagery-icons" class="button-label">Icons & Graphics</label>
+
+              <input type="radio" id="imagery-minimal" name="imagery" value="Keep it minimal, mostly text">
+              <label for="imagery-minimal" class="button-label">Minimal</label>
+
+              <input type="radio" id="imagery-mix" name="imagery" value="Mix of different styles">
+              <label for="imagery-mix" class="button-label">Mix it up</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="fieldset">
+          <div class="fieldset-title"><span>💬</span> Tell Us More</div>
+
+          <div class="form-group">
+            <label for="targetAudience">Who are your customers? <span class="optional">(optional)</span></label>
+            <textarea id="targetAudience" name="targetAudience" placeholder="e.g., Homeowners ages 35–55, small business owners, families..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="inspiration">Websites or design ideas you like <span class="optional">(optional)</span></label>
+            <textarea id="inspiration" name="inspiration" placeholder="Share any sites you like, or describe what appeals to you..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="additionalNotes">Anything else we should know? <span class="optional">(optional)</span></label>
+            <textarea id="additionalNotes" name="additionalNotes" placeholder="Budget concerns, must-haves, competitors to avoid, specific requests..."></textarea>
           </div>
         </div>
 
@@ -646,19 +859,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const submitBtn = document.getElementById('submitBtn');
     const formMessage = document.getElementById('formMessage2');
 
+    // Collect selected colors
+    const selectedColors = Array.from(document.querySelectorAll('input[name="colorPreference"]:checked'))
+      .map(el => el.value)
+      .join(', ');
+
+    // Collect selected features
+    const selectedFeatures = Array.from(document.querySelectorAll('input[name="keyFeatures"]:checked'))
+      .map(el => el.value)
+      .join(', ');
+
     const formData = {
       companyName: document.getElementById('companyName').value,
-      businessType: document.getElementById('businessType').value,
+      businessType: document.querySelector('input[name="businessType"]:checked')?.value || '',
       businessDescription: document.getElementById('businessDescription').value,
       email: document.getElementById('email').value,
       phone: document.getElementById('phone').value,
       website: document.getElementById('website').value,
-      designStyle: document.getElementById('designStyle').value,
-      colorPreference: document.getElementById('colorPreference').value,
-      tone: document.getElementById('tone').value,
-      keyFeatures: document.getElementById('keyFeatures').value,
+      designStyle: document.querySelector('input[name="designStyle"]:checked')?.value || '',
+      colorPreference: selectedColors,
+      tone: document.querySelector('input[name="tone"]:checked')?.value || '',
+      keyFeatures: selectedFeatures,
+      imagery: document.querySelector('input[name="imagery"]:checked')?.value || '',
       targetAudience: document.getElementById('targetAudience').value,
-      inspiration: document.getElementById('inspiration').value
+      inspiration: document.getElementById('inspiration').value,
+      additionalNotes: document.getElementById('additionalNotes').value
     };
 
     try {

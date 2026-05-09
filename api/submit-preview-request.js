@@ -14,7 +14,7 @@ function escapeHtml(text) {
   return text.replace(/[&<>"']/g, m => map[m]);
 }
 
-function buildClaudePrompt({ companyName, businessType, businessDescription, designStyle, colorPreference, tone, inspiration, targetAudience, keyFeatures }) {
+function buildClaudePrompt({ companyName, businessType, businessDescription, designStyle, colorPreference, tone, inspiration, targetAudience, keyFeatures, imagery, additionalNotes }) {
   return `You are a senior product designer and front end engineer who specialises in clean, premium, intentional UI. Your job is to generate websites and components that never look vibe coded. Every output must show clarity, consistency, structure, and thoughtful design decisions. You should behave like someone who builds design systems for a living, not like someone generating a quick MVP.
 
 Begin every project by establishing a strict spacing rhythm. Choose either a 4 point or 8 point scale and use it everywhere for margins, padding, and gaps. Never introduce random spacing values. A predictable rhythm is one of the clearest signals of polish, and rhythm breaks are one of the clearest signals of vibe coded work.
@@ -49,24 +49,26 @@ BUSINESS INFORMATION
 Company Name: ${companyName}
 Industry: ${businessType}
 About: ${businessDescription}
+Target Customers: ${targetAudience || 'Anyone seeking these services'}
 
 ---
 
 DESIGN DIRECTION
-Style: ${designStyle}
-Primary Color Family: ${colorPreference}
-Brand Tone: ${tone}
+Style: ${designStyle || 'Not specified — use professional and clean'}
+Primary Colors: ${colorPreference || 'Choose a professional palette'}
+Brand Tone: ${tone || 'Professional and approachable'}
+Visual Style: ${imagery || 'Use icons and clean graphics'}
 Inspiration: ${inspiration || 'Clean, structured, and professional — let the content speak'}
 
 ---
 
-TARGET AUDIENCE
-${targetAudience || 'General audience seeking these services'}
-
----
-
 KEY FEATURES TO INCLUDE
-${keyFeatures}
+${keyFeatures || 'Contact form, services overview, and call-to-action buttons'}
+
+${additionalNotes ? `---
+
+ADDITIONAL NOTES FROM CLIENT
+${additionalNotes}` : ''}
 
 ---
 
@@ -105,8 +107,12 @@ EXECUTION REQUIREMENTS
    - Hero: strong specific headline for ${companyName}, subhead, primary CTA, supporting visual
    - Services / What We Do: 3 cards, each with an icon, title, and 2-sentence description
    - How It Works: 3–4 numbered steps in a horizontal or alternating layout
-   - Social proof / Testimonials: 2–3 realistic quotes with name, title, and company
-   - ${keyFeatures} — dedicate a full section to each major feature requested
+   ${keyFeatures && keyFeatures.includes('testimonial') ? '   - Social proof / Testimonials: 2–3 realistic quotes with name, title, and company' : ''}
+   ${keyFeatures && keyFeatures.includes('gallery') ? '   - Portfolio / Gallery: Showcase of work with clean grid layout' : ''}
+   ${keyFeatures && keyFeatures.includes('pricing') ? '   - Pricing or Services: Clear, scannable pricing/service list' : ''}
+   ${keyFeatures && keyFeatures.includes('booking') ? '   - Booking / Appointments: Simple, clear booking call-to-action' : ''}
+   ${keyFeatures && keyFeatures.includes('FAQ') ? '   - FAQ Section: 5–6 common questions with expandable answers' : ''}
+   ${keyFeatures && keyFeatures.includes('team') ? '   - Team / Staff: Brief profiles with photos and roles' : ''}
    - Final CTA section: bold headline, one-line subhead, single action button
    - Footer: logo, nav links, copyright — clean and minimal
 
@@ -198,36 +204,42 @@ module.exports = async (req, res) => {
   try {
     const {
       companyName, businessType, businessDescription, email, phone, website,
-      designStyle, colorPreference, tone, keyFeatures, targetAudience, inspiration
+      designStyle, colorPreference, tone, keyFeatures, targetAudience, inspiration, imagery, additionalNotes
     } = req.body;
 
-    if (!companyName || !businessType || !businessDescription || !email || !designStyle || !colorPreference || !tone || !keyFeatures) {
+    // Only require the essential fields
+    if (!companyName || !businessType || !businessDescription || !email) {
       return res.status(400).json({ message: 'Missing required fields' });
     }
 
     const ownerContent = `
-      <div style="margin-bottom:30px;">
-        <div class="section-title">📋 Business Information</div>
-        <div class="info-row"><div class="info-label">Company</div><div class="info-value">${escapeHtml(companyName)}</div></div>
-        <div class="info-row"><div class="info-label">Business Type</div><div class="info-value">${escapeHtml(businessType)}</div></div>
-        <div class="info-row"><div class="info-label">Email</div><div class="info-value"><a href="mailto:${escapeHtml(email)}" style="color:#2e4a3e;">${escapeHtml(email)}</a></div></div>
-        <div class="info-row"><div class="info-label">Phone</div><div class="info-value">${escapeHtml(phone || 'Not provided')}</div></div>
-        ${website ? `<div class="info-row"><div class="info-label">Website</div><div class="info-value"><a href="${escapeHtml(website)}" style="color:#2e4a3e;">${escapeHtml(website)}</a></div></div>` : ''}
-        <div class="info-box">${escapeHtml(businessDescription)}</div>
-      </div>
-      <div style="margin-bottom:30px;">
-        <div class="section-title">🎨 Design Preferences</div>
-        <div class="info-row"><div class="info-label">Design Style</div><div class="info-value"><strong>${escapeHtml(designStyle)}</strong></div></div>
-        <div class="info-row"><div class="info-label">Primary Color</div><div class="info-value"><strong>${escapeHtml(colorPreference)}</strong></div></div>
-        <div class="info-row"><div class="info-label">Brand Tone</div><div class="info-value"><strong>${escapeHtml(tone)}</strong></div></div>
-        <div style="margin-top:15px;"><div style="font-weight:500;color:#2e4a3e;margin-bottom:8px;">Key Features</div><div class="info-box">${escapeHtml(keyFeatures).replace(/\n/g, '<br>')}</div></div>
-        ${targetAudience ? `<div style="margin-top:15px;"><div style="font-weight:500;color:#2e4a3e;margin-bottom:8px;">Target Audience</div><div class="info-box">${escapeHtml(targetAudience).replace(/\n/g, '<br>')}</div></div>` : ''}
-        ${inspiration ? `<div style="margin-top:15px;"><div style="font-weight:500;color:#2e4a3e;margin-bottom:8px;">Design Inspiration</div><div class="info-box">${escapeHtml(inspiration).replace(/\n/g, '<br>')}</div></div>` : ''}
-      </div>
-      <hr class="divider">
-      <div style="text-align:center;color:#708090;font-size:12px;"><p>Received: ${new Date().toLocaleString()}</p></div>`;
+  <div style="margin-bottom:30px;">
+    <div class="section-title">📋 Business Information</div>
+    <div class="info-row"><div class="info-label">Company</div><div class="info-value">${escapeHtml(companyName)}</div></div>
+    <div class="info-row"><div class="info-label">Business Type</div><div class="info-value">${escapeHtml(businessType)}</div></div>
+    <div class="info-row"><div class="info-label">Email</div><div class="info-value"><a href="mailto:${escapeHtml(email)}" style="color:#2e4a3e;">${escapeHtml(email)}</a></div></div>
+    <div class="info-row"><div class="info-label">Phone</div><div class="info-value">${escapeHtml(phone || 'Not provided')}</div></div>
+    ${website ? `<div class="info-row"><div class="info-label">Website</div><div class="info-value"><a href="${escapeHtml(website)}" style="color:#2e4a3e;">${escapeHtml(website)}</a></div></div>` : ''}
+    <div style="margin-top:15px;"><div style="font-weight:500;color:#2e4a3e;margin-bottom:8px;">What they do</div><div class="info-box">${escapeHtml(businessDescription).replace(/\n/g, '<br>')}</div></div>
+  </div>
+  <div style="margin-bottom:30px;">
+    <div class="section-title">🎨 Design & Visual Preferences</div>
+    ${designStyle ? `<div class="info-row"><div class="info-label">Vibe</div><div class="info-value"><strong>${escapeHtml(designStyle)}</strong></div></div>` : ''}
+    ${colorPreference ? `<div class="info-row"><div class="info-label">Colors</div><div class="info-value"><strong>${escapeHtml(colorPreference)}</strong></div></div>` : ''}
+    ${tone ? `<div class="info-row"><div class="info-label">Brand Tone</div><div class="info-value"><strong>${escapeHtml(tone)}</strong></div></div>` : ''}
+    ${imagery ? `<div class="info-row"><div class="info-label">Visual Style</div><div class="info-value"><strong>${escapeHtml(imagery)}</strong></div></div>` : ''}
+  </div>
+  <div style="margin-bottom:30px;">
+    <div class="section-title">📲 Site Contents & Features</div>
+    ${keyFeatures ? `<div style="margin-bottom:15px;"><div style="font-weight:500;color:#2e4a3e;margin-bottom:8px;">What to include</div><div class="info-box">${escapeHtml(keyFeatures).replace(/\n/g, '<br>')}</div></div>` : ''}
+    ${targetAudience ? `<div style="margin-bottom:15px;"><div style="font-weight:500;color:#2e4a3e;margin-bottom:8px;">Target Audience</div><div class="info-box">${escapeHtml(targetAudience).replace(/\n/g, '<br>')}</div></div>` : ''}
+    ${inspiration ? `<div style="margin-bottom:15px;"><div style="font-weight:500;color:#2e4a3e;margin-bottom:8px;">Inspiration</div><div class="info-box">${escapeHtml(inspiration).replace(/\n/g, '<br>')}</div></div>` : ''}
+    ${additionalNotes ? `<div style="margin-bottom:15px;"><div style="font-weight:500;color:#2e4a3e;margin-bottom:8px;">Other Notes</div><div class="info-box">${escapeHtml(additionalNotes).replace(/\n/g, '<br>')}</div></div>` : ''}
+  </div>
+  <hr class="divider">
+  <div style="text-align:center;color:#708090;font-size:12px;"><p>Received: ${new Date().toLocaleString()}</p></div>`;
 
-    const claudePrompt = buildClaudePrompt({ companyName, businessType, businessDescription, designStyle, colorPreference, tone, inspiration, targetAudience, keyFeatures });
+    const claudePrompt = buildClaudePrompt({ companyName, businessType, businessDescription, designStyle, colorPreference, tone, inspiration, targetAudience, keyFeatures, imagery, additionalNotes });
 
     const promptContent = `
       <div style="margin-bottom:30px;">
@@ -237,24 +249,26 @@ module.exports = async (req, res) => {
       </div>`;
 
     const customerContent = `
-      <div>
-        <p style="font-size:16px;color:#2a2a2a;margin-bottom:20px;">Hi ${escapeHtml(companyName.split(' ')[0])},</p>
-        <p style="color:#708090;line-height:1.6;margin-bottom:15px;">Thanks for reaching out! We've received your preview request and our team is excited to get started.</p>
-        <div style="background:#e8f0ed;border-left:4px solid #2e4a3e;padding:20px;border-radius:4px;margin:25px 0;">
-          <div style="color:#2e4a3e;font-weight:600;margin-bottom:8px;">What's Next?</div>
-          <p style="color:#2e4a3e;margin:0;line-height:1.6;">We'll build a custom website preview based on your design preferences. You'll receive a live link <strong>within 48 hours</strong>.</p>
-        </div>
-        <div style="background:#f5f3ef;padding:20px;border-radius:4px;margin:20px 0;">
-          <div style="color:#2e4a3e;font-weight:600;margin-bottom:15px;">Your Preview Details:</div>
-          <div style="font-size:14px;color:#708090;line-height:1.8;">
-            <strong>${escapeHtml(companyName)}</strong><br>
-            ${escapeHtml(businessType)}<br>
-            Style: ${escapeHtml(designStyle)}<br>
-            Color: ${escapeHtml(colorPreference)}
-          </div>
-        </div>
-        <p style="color:#708090;margin-top:25px;">Best,<br><strong>The Trike Media Team</strong></p>
-      </div>`;
+  <div>
+    <p style="font-size:16px;color:#2a2a2a;margin-bottom:20px;">Hi ${escapeHtml(companyName.split(' ')[0])},</p>
+    <p style="color:#708090;line-height:1.6;margin-bottom:15px;">Thanks for reaching out! We've received your preview request and our team is excited to get started building your custom website.</p>
+    <div style="background:#e8f0ed;border-left:4px solid #2e4a3e;padding:20px;border-radius:4px;margin:25px 0;">
+      <div style="color:#2e4a3e;font-weight:600;margin-bottom:8px;">What's Next?</div>
+      <p style="color:#2e4a3e;margin:0;line-height:1.6;">We'll design and build a custom website preview based on your preferences. You'll get a live link that you can see and test <strong>within 48 hours</strong>.</p>
+    </div>
+    <div style="background:#f5f3ef;padding:20px;border-radius:4px;margin:20px 0;">
+      <div style="color:#2e4a3e;font-weight:600;margin-bottom:15px;">What We're Building:</div>
+      <div style="font-size:14px;color:#708090;line-height:1.8;">
+        <strong>${escapeHtml(companyName)}</strong><br>
+        <strong>${escapeHtml(businessType)}</strong><br>
+        ${designStyle ? `<br>Look & Feel: ${escapeHtml(designStyle)}` : ''}
+        ${colorPreference ? `<br>Colors: ${escapeHtml(colorPreference)}` : ''}
+        ${tone ? `<br>Tone: ${escapeHtml(tone)}` : ''}
+        ${keyFeatures ? `<br><br>Key Features:<br>${escapeHtml(keyFeatures).replace(/,/g, '<br>')}` : ''}
+      </div>
+    </div>
+    <p style="color:#708090;margin-top:25px;">If you have any questions before we start, just reply to this email.<br><br>Best,<br><strong>The Trike Media Team</strong></p>
+  </div>`;
 
     await Promise.all([
       transporter.sendMail({
