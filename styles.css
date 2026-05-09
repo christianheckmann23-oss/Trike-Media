@@ -1028,6 +1028,191 @@ footer {
 
 .footer-links a:hover { color: var(--off-white); }
 
+/* ── MOBILE NAV ── */
+.nav-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px; height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 200;
+}
+
+.nav-burger span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--green);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+  transform-origin: center;
+}
+
+.nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-burger.open span:nth-child(2) { opacity: 0; }
+.nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.nav-mobile {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--off-white);
+  z-index: 150;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  animation: fadeIn 0.2s ease both;
+}
+
+.nav-mobile.open { display: flex; }
+
+.nav-mobile a {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--dark);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+  transition: color 0.2s;
+}
+
+.nav-mobile a:hover { color: var(--green); }
+
+.nav-mobile .nav-mobile-cta {
+  background: var(--green);
+  color: var(--off-white) !important;
+  padding: 0.8rem 2.5rem;
+  border-radius: 2px;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+/* ── RESPONSIVE BREAKPOINTS ── */
+@media (max-width: 900px) {
+  nav { padding: 1rem 2rem; }
+
+  .nav-links { display: none; }
+  .nav-burger { display: flex; }
+
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .hero-left {
+    padding: 5rem 2rem 3rem;
+    order: 1;
+  }
+
+  .hero-right {
+    order: 2;
+    min-height: 280px;
+  }
+
+  .hero-trike svg { width: 180px; }
+
+  .hero-stats { gap: 1.5rem; }
+
+  .horns-section { padding: 5rem 2rem; }
+
+  .horns-header {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .horns-grid { grid-template-columns: 1fr; }
+
+  .process-section { padding: 5rem 2rem; }
+
+  .process-steps {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+
+  .process-steps::before { display: none; }
+
+  .packages-section { padding: 5rem 2rem; }
+
+  .packages-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .packages-note { text-align: left; max-width: 100%; }
+
+  .packages-grid { grid-template-columns: 1fr; }
+
+  .retainers-section { padding: 5rem 2rem; }
+
+  .retainers-grid { grid-template-columns: 1fr; }
+
+  .niches-section { padding: 5rem 2rem; }
+
+  .niches-grid { grid-template-columns: 1fr 1fr; }
+
+  .about-section { padding: 5rem 2rem; }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .team-grid { grid-template-columns: 1fr; }
+
+  .cta-section { padding: 5rem 2rem; }
+
+  .cta-actions { flex-direction: column; align-items: center; }
+
+  footer {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .footer-links { flex-wrap: wrap; justify-content: center; gap: 1rem; }
+
+  .page-header { padding: 8rem 2rem 4rem; }
+}
+
+@media (max-width: 480px) {
+  nav { padding: 1rem 1.25rem; }
+
+  .hero-left { padding: 4.5rem 1.25rem 2.5rem; }
+
+  .hero-actions { flex-direction: column; align-items: flex-start; }
+
+  .hero-stats { flex-direction: column; gap: 1.2rem; }
+
+  .horns-section { padding: 4rem 1.25rem; }
+
+  .process-section { padding: 4rem 1.25rem; }
+
+  .process-steps { grid-template-columns: 1fr; }
+
+  .packages-section { padding: 4rem 1.25rem; }
+
+  .retainers-section { padding: 4rem 1.25rem; }
+
+  .niches-section { padding: 4rem 1.25rem; }
+
+  .niches-grid { grid-template-columns: 1fr; }
+
+  .about-section { padding: 4rem 1.25rem; }
+
+  .cta-section { padding: 4rem 1.25rem; }
+
+  footer { padding: 2rem 1.25rem; }
+
+  .page-header { padding: 7rem 1.25rem 3rem; }
+}
+
 /* ── ANIMATIONS ── */
 @keyframes fadeDown {
   from { opacity: 0; transform: translateY(-16px); }

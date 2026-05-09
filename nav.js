@@ -23,7 +23,17 @@
         <li><a href="about.html" data-page="about">About</a></li>
         <li><a href="request-preview.html" class="nav-cta">See Your Site</a></li>
       </ul>
-    </nav>`;
+      <button class="nav-burger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <div class="nav-mobile" role="dialog" aria-label="Mobile navigation">
+      <a href="process.html">Process</a>
+      <a href="packages.html">Packages</a>
+      <a href="retainers.html">Retainers</a>
+      <a href="about.html">About</a>
+      <a href="request-preview.html" class="nav-mobile-cta">See Your Site</a>
+    </div>`;
 
   const footerHTML = `
     <footer>
@@ -45,11 +55,36 @@
         <li><a href="retainers.html">Retainers</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="request-preview.html">Contact</a></li>
+        <li><a href="legal.html">Legal &amp; Policies</a></li>
       </ul>
     </footer>`;
 
-  document.getElementById('nav-placeholder').outerHTML = navHTML;
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = navHTML;
+  const navEl = tempDiv.querySelector('nav');
+  const mobileMenu = tempDiv.querySelector('.nav-mobile');
+  document.getElementById('nav-placeholder').replaceWith(navEl, mobileMenu);
   document.getElementById('footer-placeholder').outerHTML = footerHTML;
+
+  // Hamburger toggle
+  const burger = document.querySelector('.nav-burger');
+  const mobile = document.querySelector('.nav-mobile');
+  if (burger && mobile) {
+    burger.addEventListener('click', () => {
+      const isOpen = mobile.classList.toggle('open');
+      burger.classList.toggle('open', isOpen);
+      burger.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    mobile.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        mobile.classList.remove('open');
+        burger.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+  }
 
   // Highlight active nav link
   const page = document.body.dataset.page;
