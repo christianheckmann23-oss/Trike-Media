@@ -14,125 +14,253 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <style>
-  .legal-wrap {
-    max-width: 760px;
+  .legal-page {
+    background: #fff;
+    min-height: 100vh;
+  }
+
+  .legal-header {
+    border-bottom: 1px solid rgba(46,74,62,0.1);
+    padding: 7rem 4rem 3rem;
+    background: #fff;
+  }
+
+  .legal-header-inner {
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 5rem 2rem 7rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
   }
 
-  .legal-toc {
-    background: var(--green-pale);
-    border-left: 3px solid var(--green);
-    padding: 1.5rem 2rem;
-    border-radius: 2px;
-    margin-bottom: 3.5rem;
+  .legal-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    font-weight: 700;
+    color: var(--dark);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin: 0;
   }
 
-  .legal-toc p {
-    font-size: 0.75rem;
+  .legal-meta {
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .legal-meta p {
+    font-size: 0.78rem;
+    color: var(--slate-light);
+    font-weight: 300;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .legal-meta strong {
+    display: block;
+    font-size: 0.72rem;
     font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--green);
-    margin-bottom: 0.75rem;
+    color: var(--slate);
+    margin-bottom: 0.2rem;
   }
 
-  .legal-toc ol {
-    padding-left: 1.2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
+  .legal-body {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 4rem 6rem;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 5rem;
+    align-items: start;
   }
 
-  .legal-toc a {
-    font-size: 0.88rem;
-    color: var(--green);
-    text-decoration: none;
-    font-weight: 400;
+  /* Sidebar */
+  .legal-sidebar {
+    position: sticky;
+    top: 100px;
   }
 
-  .legal-toc a:hover { text-decoration: underline; }
-
-  .legal-updated {
-    font-size: 0.8rem;
+  .legal-sidebar-label {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     color: var(--slate-light);
-    font-weight: 300;
-    margin-bottom: 3rem;
-  }
-
-  .legal-section {
-    margin-bottom: 3rem;
-    padding-bottom: 3rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
     border-bottom: 1px solid rgba(46,74,62,0.1);
   }
 
-  .legal-section:last-child {
+  .legal-nav {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .legal-nav li a {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--slate);
+    text-decoration: none;
+    padding: 0.45rem 0;
+    border-left: 2px solid transparent;
+    padding-left: 0.85rem;
+    transition: color 0.15s, border-color 0.15s;
+    line-height: 1.4;
+  }
+
+  .legal-nav li a:hover,
+  .legal-nav li a.active {
+    color: var(--green);
+    border-left-color: var(--green);
+  }
+
+  .legal-sidebar-contact {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(46,74,62,0.1);
+  }
+
+  .legal-sidebar-contact p {
+    font-size: 0.75rem;
+    color: var(--slate-light);
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+
+  .legal-sidebar-contact a {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--green);
+    text-decoration: none;
+  }
+
+  .legal-sidebar-contact a:hover { text-decoration: underline; }
+
+  /* Content */
+  .legal-content section {
+    padding-bottom: 3.5rem;
+    margin-bottom: 3.5rem;
+    border-bottom: 1px solid rgba(46,74,62,0.08);
+  }
+
+  .legal-content section:last-child {
     border-bottom: none;
+    padding-bottom: 0;
     margin-bottom: 0;
   }
 
-  .legal-section h2 {
+  .legal-section-num {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+
+  .legal-content h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: var(--dark);
-    margin-bottom: 1rem;
     letter-spacing: -0.02em;
+    margin-bottom: 1.2rem;
+    line-height: 1.2;
   }
 
-  .legal-section p {
-    font-size: 0.92rem;
+  .legal-content p {
+    font-size: 0.9rem;
     color: var(--slate);
-    line-height: 1.8;
+    line-height: 1.85;
     font-weight: 300;
-    margin-bottom: 0.9rem;
+    margin-bottom: 1rem;
   }
 
-  .legal-section p:last-child { margin-bottom: 0; }
+  .legal-content p:last-child { margin-bottom: 0; }
 
-  .legal-section ul {
-    padding-left: 1.2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 0.9rem;
+  .legal-content p strong {
+    font-weight: 500;
+    color: #4a4a4a;
   }
 
-  .legal-section ul li {
-    font-size: 0.92rem;
-    color: var(--slate);
-    line-height: 1.7;
-    font-weight: 300;
-  }
-
-  .legal-section a {
+  .legal-content a {
     color: var(--green);
     text-decoration: underline;
-    text-underline-offset: 3px;
+    text-underline-offset: 2px;
   }
 
-  .legal-contact-box {
-    background: var(--warm-white);
-    border: 1px solid rgba(46,74,62,0.12);
-    border-radius: 2px;
-    padding: 1.5rem 2rem;
-    margin-top: 1rem;
+  .legal-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.88rem;
   }
 
-  .legal-contact-box p {
-    margin-bottom: 0.4rem;
-    font-size: 0.9rem;
-  }
-
-  .legal-contact-box p strong {
+  .legal-table th {
+    text-align: left;
+    font-size: 0.7rem;
     font-weight: 500;
-    color: var(--dark);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--slate);
+    padding: 0.6rem 1rem;
+    background: var(--warm-white);
+    border: 1px solid rgba(46,74,62,0.08);
+  }
+
+  .legal-table td {
+    padding: 0.85rem 1rem;
+    border: 1px solid rgba(46,74,62,0.08);
+    font-size: 0.88rem;
+    color: var(--slate);
+    font-weight: 300;
+    line-height: 1.6;
+    vertical-align: top;
+  }
+
+  .legal-table td:first-child {
+    font-weight: 500;
+    color: #4a4a4a;
+    white-space: nowrap;
+    width: 180px;
+  }
+
+  .legal-table tr:nth-child(even) td { background: #fafafa; }
+
+  .legal-note {
+    background: var(--warm-white);
+    border-left: 2px solid rgba(46,74,62,0.2);
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0;
+    border-radius: 0 2px 2px 0;
+  }
+
+  .legal-note p {
+    font-size: 0.85rem;
+    margin-bottom: 0;
+    color: var(--slate);
+  }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .legal-header { padding: 7rem 2rem 2.5rem; }
+    .legal-header-inner { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .legal-meta { text-align: left; }
+    .legal-body { grid-template-columns: 1fr; gap: 0; padding: 2rem 2rem 5rem; }
+    .legal-sidebar { position: static; margin-bottom: 3rem; }
   }
 
   @media (max-width: 480px) {
-    .legal-wrap { padding: 4rem 1.25rem 5rem; }
-    .legal-toc { padding: 1.2rem 1.25rem; }
-    .legal-contact-box { padding: 1.2rem 1.25rem; }
+    .legal-header { padding: 6.5rem 1.25rem 2rem; }
+    .legal-body { padding: 2rem 1.25rem 4rem; }
+    .legal-table td:first-child { white-space: normal; width: auto; }
   }
 </style>
 </head>
@@ -144,103 +272,194 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div id="nav-placeholder"></div>
 
-<!-- PAGE HEADER -->
-<div class="page-header">
-  <div class="page-header-inner">
-    <div class="section-tag">Policies</div>
-    <h1 class="page-header-h1">Legal &amp; <em>Policies</em></h1>
-    <p class="page-header-sub">Our policies around refunds, cancellations, and how we work — written in plain English.</p>
-  </div>
-</div>
+<div class="legal-page">
 
-<div class="legal-wrap">
-
-  <p class="legal-updated">Last updated: May 8, 2026 &nbsp;·&nbsp; Triceratops Media Solutions, LLC</p>
-
-  <div class="legal-toc">
-    <p>On this page</p>
-    <ol>
-      <li><a href="#contact">Customer Service Contact</a></li>
-      <li><a href="#refunds">Refund &amp; Dispute Policy</a></li>
-      <li><a href="#cancellation">Cancellation Policy</a></li>
-      <li><a href="#returns">Return Policy</a></li>
-      <li><a href="#legal-restrictions">Legal &amp; Export Restrictions</a></li>
-      <li><a href="#promotions">Promotional Terms &amp; Conditions</a></li>
-    </ol>
-  </div>
-
-  <!-- 1. CONTACT -->
-  <div class="legal-section" id="contact">
-    <h2>1. Customer Service Contact</h2>
-    <p>We're a small team and we're easy to reach. If you have questions about an invoice, a project, or any of the policies below, contact us through any of the following:</p>
-    <div class="legal-contact-box">
-      <p><strong>Email (preferred):</strong> <a href="mailto:sales@trikemedia.com">sales@trikemedia.com</a></p>
-      <p><strong>Contact form:</strong> <a href="request-preview.html">trikemedia.com/request-preview</a></p>
-      <p><strong>Mailing address:</strong> Triceratops Media Solutions, LLC · Elyria, Ohio</p>
+  <div class="legal-header">
+    <div class="legal-header-inner">
+      <h1>Legal &amp; Policies</h1>
+      <div class="legal-meta">
+        <strong>Last updated</strong>
+        <p>May 8, 2026</p>
+        <p>Triceratops Media Solutions, LLC</p>
+      </div>
     </div>
-    <p style="margin-top: 1rem;">We respond to all inquiries within one business day, Monday–Friday.</p>
   </div>
 
-  <!-- 2. REFUNDS & DISPUTES -->
-  <div class="legal-section" id="refunds">
-    <h2>2. Refund &amp; Dispute Policy</h2>
-    <p>Trike Media provides digital services (website design, development, and ongoing maintenance). Because of the nature of digital work, our refund policy is as follows:</p>
-    <ul>
-      <li><strong>Before project approval:</strong> Our preview-first model means you are never charged before you approve a design direction. If you request a free preview and choose not to move forward, you owe nothing — no questions asked.</li>
-      <li><strong>After project kickoff (deposit paid):</strong> If you cancel after paying an initial deposit but before the final deliverable is delivered, you forfeit the deposit. Any additional amounts paid beyond the deposit will be refunded within 10 business days.</li>
-      <li><strong>After final delivery:</strong> Once a completed website or deliverable has been handed off and accepted, no refund is available. All creative assets and code become your property at the time of final payment.</li>
-      <li><strong>Retainer plans:</strong> Months already rendered are non-refundable. See the Cancellation Policy below for how to stop future billing.</li>
-    </ul>
-    <p><strong>To dispute a charge:</strong> Contact us at <a href="mailto:sales@trikemedia.com">sales@trikemedia.com</a> within 14 days of the invoice date. We will work with you in good faith to resolve any billing discrepancy before any formal dispute is filed with your card issuer or bank.</p>
-  </div>
+  <div class="legal-body">
 
-  <!-- 3. CANCELLATION -->
-  <div class="legal-section" id="cancellation">
-    <h2>3. Cancellation Policy</h2>
-    <p>This policy applies to monthly retainer plans (Starter, Growth, and Authority tiers).</p>
-    <ul>
-      <li><strong>How to cancel:</strong> Send a written cancellation request to <a href="mailto:sales@trikemedia.com">sales@trikemedia.com</a>. Cancellations must be submitted at least 7 days before your next billing date to avoid being charged for the upcoming month.</li>
-      <li><strong>Current billing period:</strong> Your service and access remain active through the end of the billing period you have already paid for.</li>
-      <li><strong>No cancellation fees:</strong> We do not charge early-termination fees. You may cancel at any time.</li>
-      <li><strong>Asset delivery upon cancellation:</strong> Upon cancellation, we will provide you with all website files, credentials, and assets belonging to your project within 5 business days.</li>
-    </ul>
-    <p>One-time website packages do not have a recurring billing component and therefore do not require a cancellation request.</p>
-  </div>
+    <!-- Sidebar -->
+    <aside class="legal-sidebar">
+      <div class="legal-sidebar-label">On this page</div>
+      <ul class="legal-nav">
+        <li><a href="#contact">Customer Service</a></li>
+        <li><a href="#refunds">Refund &amp; Disputes</a></li>
+        <li><a href="#cancellation">Cancellation</a></li>
+        <li><a href="#returns">Return Policy</a></li>
+        <li><a href="#restrictions">Legal Restrictions</a></li>
+        <li><a href="#promotions">Promotional Terms</a></li>
+      </ul>
+      <div class="legal-sidebar-contact">
+        <p>Questions about these policies?</p>
+        <a href="mailto:sales@trikemedia.com">sales@trikemedia.com</a>
+      </div>
+    </aside>
 
-  <!-- 4. RETURNS -->
-  <div class="legal-section" id="returns">
-    <h2>4. Return Policy</h2>
-    <p>Trike Media does not sell physical goods. All products and services are digital in nature (websites, design files, copywriting, SEO, and related digital deliverables). As such, a traditional return policy does not apply.</p>
-    <p>If you are unsatisfied with a deliverable, please contact us at <a href="mailto:sales@trikemedia.com">sales@trikemedia.com</a> and we will work to make it right. Our revision process is outlined in your individual project agreement.</p>
-  </div>
+    <!-- Content -->
+    <div class="legal-content">
 
-  <!-- 5. LEGAL & EXPORT -->
-  <div class="legal-section" id="legal-restrictions">
-    <h2>5. Legal &amp; Export Restrictions</h2>
-    <p>Triceratops Media Solutions, LLC is a limited liability company registered in the State of Ohio, United States. All services are performed and delivered from the United States.</p>
-    <p>Our services (website design, web development, digital marketing consultation) are not subject to U.S. Export Administration Regulations (EAR) or International Traffic in Arms Regulations (ITAR). We do not sell controlled technology, encryption software, or defense-related goods.</p>
-    <p>Clients are solely responsible for ensuring that their use of our deliverables complies with all applicable local, state, federal, and international laws — including but not limited to accessibility requirements (ADA/WCAG), industry-specific regulations, and data privacy laws (CCPA, GDPR where applicable).</p>
-    <p>We reserve the right to decline or terminate any engagement that would require us to produce content that is unlawful, deceptive, or in violation of the Terms of Service of any platform.</p>
-  </div>
+      <section id="contact">
+        <div class="legal-section-num">Section 01</div>
+        <h2>Customer Service Contact</h2>
+        <p>Trike Media is operated by Triceratops Media Solutions, LLC, based in Elyria, Ohio. We respond to all inquiries within one business day, Monday through Friday.</p>
+        <table class="legal-table">
+          <tr>
+            <th>Channel</th>
+            <th>Details</th>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td><a href="mailto:sales@trikemedia.com">sales@trikemedia.com</a></td>
+          </tr>
+          <tr>
+            <td>Contact Form</td>
+            <td><a href="request-preview.html">trikemedia.com/request-preview</a></td>
+          </tr>
+          <tr>
+            <td>Mailing Address</td>
+            <td>Triceratops Media Solutions, LLC · Elyria, Ohio, United States</td>
+          </tr>
+        </table>
+      </section>
 
-  <!-- 6. PROMOTIONS -->
-  <div class="legal-section" id="promotions">
-    <h2>6. Promotional Terms &amp; Conditions</h2>
-    <p>From time to time, Trike Media may offer promotional pricing, discounts, or complimentary services. The following terms apply to all promotions unless otherwise stated in the specific offer:</p>
-    <ul>
-      <li><strong>Free preview offer:</strong> The complimentary website preview is available to new clients only (one per business). It is provided at Trike Media's discretion and does not constitute a binding contract or guarantee of services. Previews are created based on publicly available information about your business.</li>
-      <li><strong>Discount codes &amp; limited-time pricing:</strong> Promotional rates apply only to the initial term specified and do not carry forward to renewals unless explicitly stated. Offers cannot be combined with other promotions unless indicated.</li>
-      <li><strong>Grandfathered pricing:</strong> Clients who lock in retainer pricing during a promotional window retain that rate for as long as their subscription remains active and in good standing. Cancellation and re-subscription forfeits the grandfathered rate.</li>
-      <li><strong>Availability:</strong> All promotions are subject to availability and may be withdrawn or modified at any time without notice, except for offers already accepted in writing.</li>
-      <li><strong>No cash value:</strong> Promotional credits and discounts have no cash value and are non-transferable.</li>
-    </ul>
-    <p>Questions about a specific promotion? Email <a href="mailto:sales@trikemedia.com">sales@trikemedia.com</a>.</p>
-  </div>
+      <section id="refunds">
+        <div class="legal-section-num">Section 02</div>
+        <h2>Refund &amp; Dispute Policy</h2>
+        <p>Trike Media provides digital services including website design, development, and ongoing maintenance. Because of the nature of creative digital work, our refund eligibility depends on the stage at which a request is made.</p>
+        <table class="legal-table">
+          <tr>
+            <th>Stage</th>
+            <th>Refund Eligibility</th>
+          </tr>
+          <tr>
+            <td>Before approval</td>
+            <td>No charge is ever collected before you approve a design direction. If you request a free preview and choose not to proceed, you owe nothing.</td>
+          </tr>
+          <tr>
+            <td>After deposit, before delivery</td>
+            <td>The initial deposit is non-refundable. Any amounts paid beyond the deposit will be refunded within 10 business days of a written cancellation request.</td>
+          </tr>
+          <tr>
+            <td>After final delivery</td>
+            <td>No refund is available once a completed deliverable has been handed off and accepted. All assets become your property at the time of final payment.</td>
+          </tr>
+          <tr>
+            <td>Retainer plans</td>
+            <td>Billing periods already rendered are non-refundable. Future billing may be stopped per the Cancellation Policy below.</td>
+          </tr>
+        </table>
+        <div class="legal-note">
+          <p><strong>To dispute a charge:</strong> Contact us at <a href="mailto:sales@trikemedia.com">sales@trikemedia.com</a> within 14 days of the invoice date. We will work in good faith to resolve any billing discrepancy before a formal dispute is filed with your card issuer or bank.</p>
+        </div>
+      </section>
 
+      <section id="cancellation">
+        <div class="legal-section-num">Section 03</div>
+        <h2>Cancellation Policy</h2>
+        <p>This policy applies to monthly retainer plans (Steady, Steady+, and Steady Pro). One-time website packages have no recurring billing and do not require a cancellation request.</p>
+        <table class="legal-table">
+          <tr>
+            <th>Term</th>
+            <th>Policy</th>
+          </tr>
+          <tr>
+            <td>How to cancel</td>
+            <td>Submit a written request to <a href="mailto:sales@trikemedia.com">sales@trikemedia.com</a> at least 7 days before your next billing date.</td>
+          </tr>
+          <tr>
+            <td>Active access</td>
+            <td>Service continues through the end of the period you have already paid for.</td>
+          </tr>
+          <tr>
+            <td>Early termination fees</td>
+            <td>None. You may cancel at any time without penalty.</td>
+          </tr>
+          <tr>
+            <td>Asset handoff</td>
+            <td>All website files, credentials, and project assets will be delivered to you within 5 business days of cancellation.</td>
+          </tr>
+        </table>
+      </section>
+
+      <section id="returns">
+        <div class="legal-section-num">Section 04</div>
+        <h2>Return Policy</h2>
+        <p>Trike Media does not sell physical goods. All products and services are digital in nature — including websites, design files, copywriting, and SEO work — and a traditional return policy does not apply.</p>
+        <p>If you are unsatisfied with a deliverable, contact us at <a href="mailto:sales@trikemedia.com">sales@trikemedia.com</a> and we will work to resolve it. The revision process specific to your project is outlined in your individual service agreement.</p>
+      </section>
+
+      <section id="restrictions">
+        <div class="legal-section-num">Section 05</div>
+        <h2>Legal &amp; Export Restrictions</h2>
+        <p>Triceratops Media Solutions, LLC is a limited liability company registered in the State of Ohio, United States. All services are performed and delivered from within the United States.</p>
+        <p>Our services — website design, web development, and digital marketing consultation — are not subject to U.S. Export Administration Regulations (EAR) or International Traffic in Arms Regulations (ITAR). We do not sell controlled technology, encryption software, or defense-related goods.</p>
+        <p>Clients are solely responsible for ensuring their use of our deliverables complies with all applicable local, state, federal, and international laws, including accessibility standards (ADA/WCAG), industry-specific regulations, and data privacy laws (CCPA, GDPR where applicable).</p>
+        <p>Trike Media reserves the right to decline or terminate any engagement that would require producing content that is unlawful, deceptive, or in violation of any third-party platform's terms of service.</p>
+      </section>
+
+      <section id="promotions">
+        <div class="legal-section-num">Section 06</div>
+        <h2>Promotional Terms &amp; Conditions</h2>
+        <p>From time to time, Trike Media may offer promotional pricing, discounts, or complimentary services. The following terms apply to all promotions unless otherwise stated in writing.</p>
+        <table class="legal-table">
+          <tr>
+            <th>Offer</th>
+            <th>Terms</th>
+          </tr>
+          <tr>
+            <td>Free preview</td>
+            <td>Available to new clients only, one per business. Provided at Trike Media's discretion and does not constitute a binding contract or guarantee of services. Previews are built from publicly available business information.</td>
+          </tr>
+          <tr>
+            <td>Discount codes</td>
+            <td>Promotional rates apply only to the initial term specified and do not carry forward to renewals unless explicitly stated. Offers cannot be combined unless indicated.</td>
+          </tr>
+          <tr>
+            <td>Grandfathered pricing</td>
+            <td>Clients who lock in a retainer rate during a promotional window retain that rate for the life of an active, in-good-standing subscription. Cancellation and re-subscription forfeits the grandfathered rate.</td>
+          </tr>
+          <tr>
+            <td>Availability</td>
+            <td>All promotions are subject to availability and may be withdrawn or modified at any time without notice, except for offers already confirmed in writing.</td>
+          </tr>
+          <tr>
+            <td>Cash value</td>
+            <td>Promotional credits and discounts have no cash value and are non-transferable.</td>
+          </tr>
+        </table>
+        <p>Questions about a specific promotion? Email <a href="mailto:sales@trikemedia.com">sales@trikemedia.com</a>.</p>
+      </section>
+
+    </div>
+  </div>
 </div>
 
 <div id="footer-placeholder"></div>
 
 <script src="nav.js"></script>
+<script>
+  // Highlight active TOC link on scroll
+  const sections = document.querySelectorAll('.legal-content section[id]');
+  const navLinks = document.querySelectorAll('.legal-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`.legal-nav a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
 </body>
 </html>
