@@ -3,7 +3,7 @@
   const navHTML = `
     <nav>
       <a href="index.html" class="nav-logo">
-        <img src="images/logo-white.png" class="logo-mark" alt="Trike Media">
+        <img src="images/logo-white.svg" class="logo-mark" alt="Trike Media">
         <span class="logo-text">Trike Media</span>
       </a>
       <ul class="nav-links">
@@ -28,7 +28,7 @@
   const footerHTML = `
     <footer>
       <a href="index.html" class="footer-logo">
-        <img src="images/logo-white.png" width="28" height="28" alt="Trike Media">
+        <img src="images/logo-white.svg" width="28" height="28" alt="Trike Media">
         Trike Media
       </a>
       <p class="footer-copy">© 2026 Triceratops Media Solutions, LLC · Elyria, Ohio</p>
